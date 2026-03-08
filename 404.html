@@ -55,11 +55,6 @@
                     "/HnKGenerator": "/match_db/",
                     "/HnKGenerator/": "/match_db/",
                     "/HnKGenerator/index.html": "/match_db/",
-                    "/HnKGenerator/codes.html": "/codes/",
-                    "/HnKGenerator/iad_frame.html": "/iad_frame/",
-                    "/HnKGenerator/opening_matchup.html": "/opening_matchup/",
-                    "/HnKGenerator/mx4sio.html": "/mx4sio/",
-                    "/HnKGenerator/match_db.html": "/match_db/",
                 };
                 const cleanPageMap = {
                     codes: "/codes/",
@@ -111,6 +106,7 @@
                 const suffixPath = path.slice(legacyPrefix.length + 1);
                 const segments = suffixPath.split("/").filter(Boolean);
                 const first = segments[0] || "";
+                const normalizedFirst = first.replace(/\.html$/i, "");
 
                 if (!first) {
                     setRedirectMessage();
@@ -118,9 +114,9 @@
                     return;
                 }
 
-                if (cleanPageMap[first]) {
+                if (cleanPageMap[normalizedFirst]) {
                     setRedirectMessage();
-                    redirectTo(cleanPageMap[first]);
+                    redirectTo(cleanPageMap[normalizedFirst]);
                     return;
                 }
 

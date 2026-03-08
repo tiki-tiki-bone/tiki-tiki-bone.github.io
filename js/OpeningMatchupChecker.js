@@ -969,7 +969,7 @@ async function getDataFromJson(idx) {
     const p = players[idx];
     p.offsetGlobal.x = 0;
     p.offsetGlobal.y = 0;
-    return fetch(`./data/${charFolders[p.char]}.json?ts=${Date.now()}`)
+    return fetch(`/data/${charFolders[p.char]}.json?ts=${Date.now()}`)
         .then(function (res) {
             return res.json();
         })

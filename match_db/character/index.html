@@ -1721,7 +1721,7 @@
                         params.set("mode", "card");
                         params.set("ch1", currentCharId);
                         if (card.w !== "all") params.set("w", card.w);
-                        wrap.href = `./?${params.toString()}`;
+                        wrap.href = `${window.location.pathname}?${params.toString()}`;
                     }
 
                     const title = document.createElement("div");
