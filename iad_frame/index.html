@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5249633077991567" crossorigin="anonymous"></script>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-NM6S92KNW1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag("js", new Date());
+            gtag("config", "G-NM6S92KNW1");
+        </script>
+        <meta charset="UTF-8" />
+        <title>低ダ攻撃発生Fデータ</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <style>
+            body {
+                font-family: "Helvetica Neue", sans-serif;
+                margin: 0;
+                padding: 0;
+                background: #f9f9f9;
+                color: #333;
+            }
+            header {
+                background-color: #333;
+                color: white;
+                padding: 2rem 1rem 1rem;
+                text-align: center;
+                position: relative;
+            }
+
+            nav {
+                display: flex;
+                justify-content: center;
+                gap: 1rem;
+                flex-wrap: nowrap;
+            }
+
+            .table-container {
+                width: fit-content; /* 中身（テーブル）の幅に合わせる */
+                margin: auto; /* 横中央 */
+                background-color: white;
+                padding: 0.5rem;
+                background: white;
+                box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+            }
+
+            nav a {
+                color: white;
+                text-decoration: none;
+                font-weight: 600;
+                padding: 0.4rem 1rem;
+                border: 2px solid transparent;
+                border-radius: 6px;
+                transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+                font-size: 1rem;
+                user-select: none;
+            }
+
+            table {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            nav a:hover,
+            nav a:focus {
+                background-color: #ffb347;
+                color: #333;
+                border-color: #ffb347;
+                outline: none;
+            }
+
+            /* ハンバーガーボタン */
+            .menu-toggle {
+                display: none;
+                position: absolute;
+                top: 0.5rem;
+                right: 0.5rem;
+                width: 30px;
+                height: 22px;
+                cursor: pointer;
+                flex-direction: column;
+                justify-content: space-between;
+                user-select: none;
+                z-index: 10;
+            }
+            .menu-toggle span {
+                display: block;
+                height: 4px;
+                background: white;
+                border-radius: 2px;
+            }
+
+            td.right {
+                text-align: right;
+            }
+
+            table {
+                border-collapse: collapse;
+            }
+
+            th,
+            td {
+                border: 1px solid #ccc;
+                padding: 0 5px;
+            }
+
+            /* スマホ用 */
+            @media (max-width: 600px) {
+                nav {
+                    position: absolute;
+                    top: 100%;
+                    left: 0;
+                    right: 0;
+                    background-color: #333;
+                    flex-direction: column;
+                    display: none; /* 初期は非表示 */
+                    margin: 0;
+                    padding: 0.5rem 0;
+                }
+                nav a {
+                    padding: 1rem;
+                    border: none;
+                    text-align: center;
+                    font-size: 1.2rem;
+                }
+                nav.show {
+                    display: flex;
+                }
+
+                .menu-toggle {
+                    display: flex;
+                }
+
+                h1 {
+                    font-size: 18px;
+                    margin-bottom: 10px;
+                }
+            }
+
+            .table-container {
+                max-width: 100%;
+                margin: 0 auto 50px;
+                overflow-x: auto;
+            }
+
+            table {
+                width: 100%;
+                background: white;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            }
+            main {
+                max-width: 800px;
+                margin: 2rem auto;
+                padding: 1rem;
+                background: white;
+                box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+            }
+
+            th,
+            td {
+                border: 1px solid #ccc;
+                padding: 5px;
+                text-align: center;
+            }
+
+            th {
+                background-color: #f0f0f0;
+            }
+
+            @media (max-width: 600px) {
+                nav a {
+                    display: block;
+                    margin: 10px 0;
+                }
+            }
+        </style>
+            <script src="/js/site-header.js" defer data-site-header></script>
+    </head>
+    <body>
+        <div id="siteHeader" data-title="低ダ攻撃発生Fデータ"></div>
+
+        <main>
+            <br />
+            <div class="table-container">
+                <div style="margin-bottom: 1em; text-align: left">
+                    相手キャラ：
+                    <select id="opponentSelect"></select>
+                </div>
+                <table id="frameTable">
+                    <!-- JSで動的生成 -->
+                </table>
+                <div
+                    style="
+                        width: 100%;
+                        text-align: right;
+                        margin-top: 0.5em;
+                        color: #666;
+                        font-size: 0.9em;
+                    "
+                >
+                    備考：最も早く攻撃がヒットするよう、距離を調整しています。<br />
+                    密着から低ダをした場合は「密着低ダ時加算F」のF数分だけヒットが遅れます。
+                </div>
+            </div>
+        </main>
+        <script>
+function renderOpponentSelect() {
+                const select = document.getElementById("opponentSelect");
+                select.innerHTML = "";
+                opponentList.forEach((name) => {
+                    const opt = document.createElement("option");
+                    opt.value = name;
+                    opt.textContent = name;
+                    select.appendChild(opt);
+                });
+            }
+
+            function renderTable(opponent) {
+                const table = document.getElementById("frameTable");
+                table.innerHTML = "";
+                // ヘッダ
+                const thead = document.createElement("thead");
+                thead.innerHTML = `<tr>
+                                                            <th rowspan="2">自分</th>
+                                                            <th rowspan="2">技</th>
+                                                            <th rowspan="2">J入力からヒット</th>
+                                                            <th colspan="4">フレーム内訳</th>
+                                                            <th rowspan="2">密着低ダ時加算F</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>J移行F</th>
+                                                            <th>低ダ発生F</th>
+                                                            <th>攻撃発生F</th>
+                                                            <th>持続ヒット</th>
+                                                        </tr>`;
+                table.appendChild(thead);
+                // データ
+                const tbody = document.createElement("tbody");
+                frameData[opponent].forEach((row) => {
+                    row.moves.forEach((move, idx) => {
+                        const tr = document.createElement("tr");
+                        if (idx === 0) {
+                            tr.innerHTML += `<td rowspan="${row.moves.length}">${row.self}</td>`;
+                        }
+                        tr.innerHTML += `<td>${move.name}</td>`;
+                        tr.innerHTML += `<td class="right">${
+                            move.values[0] + move.values[1] + move.values[2] + move.values[3]
+                        }</td>`;
+                        tr.innerHTML += `<td class="right">${move.values[0]}</td>`;
+                        tr.innerHTML += `<td class="right">${move.values[1]}</td>`;
+                        tr.innerHTML += `<td class="right">${move.values[2]}</td>`;
+                        tr.innerHTML += `<td class="right">${move.values[3]}</td>`;
+                        tr.innerHTML += `<td class="right">${move.values[4]}</td>`;
+                        tbody.appendChild(tr);
+                    });
+                });
+                table.appendChild(tbody);
+            }
+
+            // 初期化
+            window.addEventListener("DOMContentLoaded", () => {
+                renderOpponentSelect();
+                renderTable(opponentList[0]);
+                document.getElementById("opponentSelect").addEventListener("change", (e) => {
+                    renderTable(e.target.value);
+                });
+            });
+            const frameData = {
+                ケン: [
+                    {
+                        self: "ケン",
+                        moves: [
+                            { name: "JB", values: [4, 6, 10, 0, 1] },
+                            { name: "HJB", values: [4, 4, 10, 0, 1] },
+                        ],
+                    },
+                    {
+                        self: "ラオウ",
+                        moves: [
+                            { name: "JB", values: [4, 7, 8, 1, 2] },
+                            { name: "HJB", values: [4, 5, 8, 2, 2] },
+                        ],
+                    },
+                    {
+                        self: "トキ",
+                        moves: [
+                            { name: "JD", values: [4, 6, 9, 0, 0] },
+                            { name: "HJD", values: [4, 4, 9, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "ジャギ",
+                        moves: [
+                            { name: "JD", values: [4, 8, 10, 0, 3] },
+                            { name: "HJD", values: [4, 5, 10, 0, 3] },
+                        ],
+                    },
+                    {
+                        self: "シン",
+                        moves: [
+                            { name: "JB", values: [4, 8, 10, 0, 0] },
+                            { name: "HJB", values: [4, 5, 10, 0, 0] },
+                            { name: "JD", values: [4, 8, 11, 0, "空振り"] },
+                            { name: "HJD", values: [4, 5, 11, 0, "空振り"] },
+                        ],
+                    },
+                    {
+                        self: "レイ",
+                        moves: [
+                            { name: "JB", values: [4, 7, 5, 5, 0] },
+                            { name: "HJB", values: [4, 6, 5, 6, 0] },
+                            { name: "JD", values: [4, 7, 11, 0, 2] },
+                            { name: "HJD", values: [4, 6, 11, 0, 2] },
+                        ],
+                    },
+                    {
+                        self: "ユダ",
+                        moves: [
+                            { name: "JB", values: [5, 8, 5, 3, 0] },
+                            { name: "HJB", values: [5, 5, 5, 3, 0] },
+                        ],
+                    },
+                    {
+                        self: "ユダ(垂直J)",
+                        moves: [
+                            { name: "JB", values: [4, 8, 5, 3, 0] },
+                            { name: "HJB", values: [4, 5, 5, 3, 0] },
+                        ],
+                    },
+                    {
+                        self: "サウザー",
+                        moves: [
+                            { name: "JB", values: [4, 8, 8, 0, 4] },
+                            { name: "HJB", values: [4, 5, 8, 1, 3] },
+                        ],
+                    },
+                    {
+                        self: "ハート",
+                        moves: [
+                            { name: "JD", values: [10, 6, 9, 0, 0] },
+                            { name: "HJD", values: [10, 4, 9, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "ハート(垂直J)",
+                        moves: [
+                            { name: "JD", values: [8, 6, 9, 0, 0] },
+                            { name: "HJD", values: [8, 4, 9, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "マミヤ",
+                        moves: [
+                            { name: "JD", values: [4, 8, 9, 1, "空振り"] },
+                            { name: "HJD", values: [4, 5, 9, 1, "空振り"] },
+                        ],
+                    },
+                ],
+                ラオウ: [
+                    {
+                        self: "ケン",
+                        moves: [
+                            { name: "JB", values: [4, 6, 10, 0, 0] },
+                            { name: "HJB", values: [4, 4, 10, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "ラオウ",
+                        moves: [
+                            { name: "JB", values: [4, 7, 8, 0, 0] },
+                            { name: "HJB", values: [4, 5, 8, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "トキ",
+                        moves: [
+                            { name: "JD", values: [4, 6, 9, 0, 0] },
+                            { name: "HJD", values: [4, 4, 9, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "ジャギ",
+                        moves: [
+                            { name: "JD", values: [4, 8, 10, 0, 0] },
+                            { name: "HJD", values: [4, 5, 10, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "シン",
+                        moves: [
+                            { name: "JB", values: [4, 8, 10, 0, 0] },
+                            { name: "HJB", values: [4, 5, 10, 0, 0] },
+                            { name: "JD", values: [4, 8, 11, 0, 0] },
+                            { name: "HJD", values: [4, 5, 11, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "レイ",
+                        moves: [
+                            { name: "JB", values: [4, 7, 5, 0, 0] },
+                            { name: "HJB", values: [4, 6, 5, 1, 0] },
+                            { name: "JD", values: [4, 7, 11, 0, 0] },
+                            { name: "HJD", values: [4, 6, 11, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "ユダ",
+                        moves: [
+                            { name: "JB", values: [5, 8, 5, 0, 0] },
+                            { name: "HJB", values: [5, 5, 5, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "ユダ(垂直J)",
+                        moves: [
+                            { name: "JB", values: [4, 8, 5, 0, 0] },
+                            { name: "HJB", values: [4, 5, 5, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "サウザー",
+                        moves: [
+                            { name: "JB", values: [4, 8, 8, 0, 0] },
+                            { name: "HJB", values: [4, 5, 8, 0, 1] },
+                        ],
+                    },
+                    {
+                        self: "ハート",
+                        moves: [
+                            { name: "JD", values: [10, 6, 9, 0, 0] },
+                            { name: "HJD", values: [10, 4, 9, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "ハート(垂直J)",
+                        moves: [
+                            { name: "JD", values: [8, 6, 9, 0, 0] },
+                            { name: "HJD", values: [8, 4, 9, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "マミヤ",
+                        moves: [
+                            { name: "JD", values: [4, 8, 9, 0, "空振り"] },
+                            { name: "HJD", values: [4, 5, 9, 0, "空振り"] },
+                            ,
+                            { name: "JB", values: [4, 8, 5, 0, 0] },
+                            { name: "HJB", values: [4, 5, 5, 0, 0] },
+                        ],
+                    },
+                ],
+                トキ: [
+                    {
+                        self: "ケン",
+                        moves: [
+                            { name: "JB", values: [4, 6, 10, 0, 0] },
+                            { name: "HJB", values: [4, 4, 10, 0, 1] },
+                        ],
+                    },
+                    {
+                        self: "ラオウ",
+                        moves: [
+                            { name: "JB", values: [4, 7, 8, 2, 1] },
+                            { name: "HJB", values: [4, 5, 8, 3, 1] },
+                        ],
+                    },
+                    {
+                        self: "トキ",
+                        moves: [
+                            { name: "JD", values: [4, 6, 9, 0, 0] },
+                            { name: "HJD", values: [4, 4, 9, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "ジャギ",
+                        moves: [
+                            { name: "JD", values: [4, 8, 10, 0, 0] },
+                            { name: "HJD", values: [4, 5, 10, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "シン",
+                        moves: [
+                            { name: "JB", values: [4, 8, 10, 0, 0] },
+                            { name: "HJB", values: [4, 5, 10, 0, 0] },
+                            { name: "JD", values: [4, 8, 11, 0, 2] },
+                            { name: "HJD", values: [4, 5, 11, 0, 2] },
+                        ],
+                    },
+                    {
+                        self: "レイ",
+                        moves: [
+                            { name: "JB", values: [4, 7, 5, 5, 0] },
+                            { name: "HJB", values: [4, 6, 5, 6, 0] },
+                            { name: "JD", values: [4, 7, 11, 0, 0] },
+                            { name: "HJD", values: [4, 6, 11, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "ユダ",
+                        moves: [
+                            { name: "JB", values: [5, 8, 5, 3, 0] },
+                            { name: "HJB", values: [5, 5, 5, 3, 0] },
+                        ],
+                    },
+                    {
+                        self: "ユダ(垂直J)",
+                        moves: [
+                            { name: "JB", values: [4, 8, 5, 3, 0] },
+                            { name: "HJB", values: [4, 5, 5, 3, 0] },
+                        ],
+                    },
+                    {
+                        self: "サウザー",
+                        moves: [
+                            { name: "JB", values: [4, 8, 8, 0, 0] },
+                            { name: "HJB", values: [4, 5, 8, 1, 0] },
+                        ],
+                    },
+                    {
+                        self: "ハート",
+                        moves: [
+                            { name: "JD", values: [10, 6, 9, 0, 0] },
+                            { name: "HJD", values: [10, 4, 9, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "ハート(垂直J)",
+                        moves: [
+                            { name: "JD", values: [8, 6, 9, 0, 0] },
+                            { name: "HJD", values: [8, 4, 9, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "マミヤ",
+                        moves: [
+                            { name: "JD", values: [4, 8, 9, 1, "空振り"] },
+                            { name: "HJD", values: [4, 5, 9, 1, "空振り"] },
+                        ],
+                    },
+                ],
+                ジャギ: [
+                    {
+                        self: "ケン",
+                        moves: [
+                            { name: "JB", values: [4, 6, 10, 0, 1] },
+                            { name: "HJB", values: [4, 4, 10, 0, 1] },
+                        ],
+                    },
+                    {
+                        self: "ラオウ",
+                        moves: [
+                            { name: "JB", values: [4, 7, 8, 3, 1] },
+                            { name: "HJB", values: [4, 5, 8, 3, 2] },
+                        ],
+                    },
+                    {
+                        self: "トキ",
+                        moves: [
+                            { name: "JD", values: [4, 6, 9, 0, 0] },
+                            { name: "HJD", values: [4, 4, 9, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "ジャギ",
+                        moves: [
+                            { name: "JD", values: [4, 8, 10, 1, 0] },
+                            { name: "HJD", values: [4, 5, 10, 1, 0] },
+                        ],
+                    },
+                    {
+                        self: "シン",
+                        moves: [
+                            { name: "JB", values: [4, 8, 10, 0, 0] },
+                            { name: "HJB", values: [4, 5, 10, 0, 0] },
+                            { name: "JD", values: [4, 8, 11, 0, 1] },
+                            { name: "HJD", values: [4, 5, 11, 0, 1] },
+                        ],
+                    },
+                    {
+                        self: "レイ",
+                        moves: [
+                            { name: "JB", values: [4, 7, 5, 6, 0] },
+                            { name: "HJB", values: [4, 6, 5, 7, 0] },
+                            { name: "JD", values: [4, 7, 11, 0, 0] },
+                            { name: "HJD", values: [4, 6, 11, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "ユダ",
+                        moves: [
+                            { name: "JB", values: [5, 8, 5, 4, 0] },
+                            { name: "HJB", values: [5, 5, 5, 4, 0] },
+                        ],
+                    },
+                    {
+                        self: "ユダ(垂直J)",
+                        moves: [
+                            { name: "JB", values: [4, 8, 5, 4, 0] },
+                            { name: "HJB", values: [4, 5, 5, 4, 0] },
+                        ],
+                    },
+                    {
+                        self: "サウザー",
+                        moves: [
+                            { name: "JB", values: [4, 8, 8, 1, 0] },
+                            { name: "HJB", values: [4, 5, 8, 2, 0] },
+                        ],
+                    },
+                    {
+                        self: "ハート",
+                        moves: [
+                            { name: "JD", values: [10, 6, 9, 0, 0] },
+                            { name: "HJD", values: [10, 4, 9, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "ハート(垂直J)",
+                        moves: [
+                            { name: "JD", values: [8, 6, 9, 0, 0] },
+                            { name: "HJD", values: [8, 4, 9, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "マミヤ",
+                        moves: [
+                            { name: "JD", values: [4, 8, 9, 2, "空振り"] },
+                            { name: "HJD", values: [4, 5, 9, 2, "空振り"] },
+                        ],
+                    },
+                ],
+                シン: [
+                    {
+                        self: "ケン",
+                        moves: [
+                            { name: "JB", values: [4, 6, 10, 0, 2] },
+                            { name: "HJB", values: [4, 4, 10, 0, 2] },
+                        ],
+                    },
+                    {
+                        self: "ラオウ",
+                        moves: [
+                            { name: "JB", values: [4, 7, 8, 2, 2] },
+                            { name: "HJB", values: [4, 5, 8, 3, 2] },
+                        ],
+                    },
+                    {
+                        self: "トキ",
+                        moves: [
+                            { name: "JD", values: [4, 6, 9, 0, 0] },
+                            { name: "HJD", values: [4, 4, 9, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "ジャギ",
+                        moves: [
+                            { name: "JD", values: [4, 8, 10, 0, 0] },
+                            { name: "HJD", values: [4, 5, 10, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "シン",
+                        moves: [
+                            { name: "JB", values: [4, 8, 10, 0, 0] },
+                            { name: "HJB", values: [4, 5, 10, 0, 0] },
+                            { name: "JD", values: [4, 8, 11, 0, "空振り"] },
+                            { name: "HJD", values: [4, 5, 11, 0, "空振り"] },
+                        ],
+                    },
+                    {
+                        self: "レイ",
+                        moves: [
+                            { name: "JB", values: [4, 7, 5, 6, 0] },
+                            { name: "HJB", values: [4, 6, 5, 6, 0] },
+                            { name: "JD", values: [4, 7, 11, 0, 0] },
+                            { name: "HJD", values: [4, 6, 11, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "ユダ",
+                        moves: [
+                            { name: "JB", values: [5, 8, 5, 4, 0] },
+                            { name: "HJB", values: [5, 5, 5, 4, 0] },
+                        ],
+                    },
+                    {
+                        self: "ユダ(垂直J)",
+                        moves: [
+                            { name: "JB", values: [4, 8, 5, 4, 0] },
+                            { name: "HJB", values: [4, 5, 5, 4, 0] },
+                        ],
+                    },
+                    {
+                        self: "サウザー",
+                        moves: [
+                            { name: "JB", values: [4, 8, 8, 1, 0] },
+                            { name: "HJB", values: [4, 5, 8, 2, 0] },
+                        ],
+                    },
+                    {
+                        self: "ハート",
+                        moves: [
+                            { name: "JD", values: [10, 6, 9, 0, 0] },
+                            { name: "HJD", values: [10, 4, 9, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "ハート(垂直J)",
+                        moves: [
+                            { name: "JD", values: [8, 6, 9, 0, 0] },
+                            { name: "HJD", values: [8, 4, 9, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "マミヤ",
+                        moves: [
+                            { name: "JD", values: [4, 8, 9, 2, "空振り"] },
+                            { name: "HJD", values: [4, 5, 9, 2, "空振り"] },
+                        ],
+                    },
+                ],
+                レイ: [
+                    {
+                        self: "ケン",
+                        moves: [
+                            { name: "JB", values: [4, 6, 10, 0, 1] },
+                            { name: "HJB", values: [4, 4, 10, 0, 1] },
+                        ],
+                    },
+                    {
+                        self: "ラオウ",
+                        moves: [
+                            { name: "JB", values: [4, 7, 8, 3, 1] },
+                            { name: "HJB", values: [4, 5, 8, 4, 1] },
+                        ],
+                    },
+                    {
+                        self: "トキ",
+                        moves: [
+                            { name: "JD", values: [4, 6, 9, 0, 0] },
+                            { name: "HJD", values: [4, 4, 9, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "ジャギ",
+                        moves: [
+                            { name: "JD", values: [4, 8, 10, 1, 0] },
+                            { name: "HJD", values: [4, 5, 10, 1, 0] },
+                        ],
+                    },
+                    {
+                        self: "シン",
+                        moves: [
+                            { name: "JB", values: [4, 8, 10, 1, 0] },
+                            { name: "HJB", values: [4, 5, 10, 1, 0] },
+                            { name: "JD", values: [4, 8, 11, 0, "空振り"] },
+                            { name: "HJD", values: [4, 5, 11, 0, "空振り"] },
+                        ],
+                    },
+                    {
+                        self: "レイ",
+                        moves: [
+                            { name: "JB", values: [4, 7, 5, 7, 0] },
+                            { name: "HJB", values: [4, 6, 5, 7, 0] },
+                            { name: "JD", values: [4, 7, 11, 0, 0] },
+                            { name: "HJD", values: [4, 6, 11, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "ユダ",
+                        moves: [
+                            { name: "JB", values: [5, 8, 5, 5, 0] },
+                            { name: "HJB", values: [5, 5, 5, 5, 0] },
+                        ],
+                    },
+                    {
+                        self: "ユダ(垂直J)",
+                        moves: [
+                            { name: "JB", values: [4, 8, 5, 5, 0] },
+                            { name: "HJB", values: [4, 5, 5, 5, 0] },
+                        ],
+                    },
+                    {
+                        self: "サウザー",
+                        moves: [
+                            { name: "JB", values: [4, 8, 8, 2, 0] },
+                            { name: "HJB", values: [4, 5, 8, 3, 0] },
+                        ],
+                    },
+                    {
+                        self: "ハート",
+                        moves: [
+                            { name: "JD", values: [10, 6, 9, 0, 0] },
+                            { name: "HJD", values: [10, 4, 9, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "ハート(垂直J)",
+                        moves: [
+                            { name: "JD", values: [8, 6, 9, 0, 0] },
+                            { name: "HJD", values: [8, 4, 9, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "マミヤ",
+                        moves: [
+                            { name: "JD", values: [4, 8, 9, 2, "空振り"] },
+                            { name: "HJD", values: [4, 5, 9, 2, "空振り"] },
+                        ],
+                    },
+                ],
+                ユダ: [
+                    {
+                        self: "ケン",
+                        moves: [
+                            { name: "JB", values: [4, 6, 10, 0, 0] },
+                            { name: "HJB", values: [4, 4, 10, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "ラオウ",
+                        moves: [
+                            { name: "JB", values: [4, 7, 8, 2, 1] },
+                            { name: "HJB", values: [4, 5, 8, 3, 1] },
+                        ],
+                    },
+                    {
+                        self: "トキ",
+                        moves: [
+                            { name: "JD", values: [4, 6, 9, 0, 0] },
+                            { name: "HJD", values: [4, 4, 9, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "ジャギ",
+                        moves: [
+                            { name: "JD", values: [4, 8, 10, 0, 0] },
+                            { name: "HJD", values: [4, 5, 10, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "シン",
+                        moves: [
+                            { name: "JB", values: [4, 8, 10, 0, 0] },
+                            { name: "HJB", values: [4, 5, 10, 0, 0] },
+                            { name: "JD", values: [4, 8, 11, 0, 0] },
+                            { name: "HJD", values: [4, 5, 11, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "レイ",
+                        moves: [
+                            { name: "JB", values: [4, 7, 5, 6, 0] },
+                            { name: "HJB", values: [4, 6, 5, 6, 0] },
+                            { name: "JD", values: [4, 7, 11, 0, 0] },
+                            { name: "HJD", values: [4, 6, 11, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "ユダ",
+                        moves: [
+                            { name: "JB", values: [5, 8, 5, 3, 0] },
+                            { name: "HJB", values: [5, 5, 5, 3, 0] },
+                        ],
+                    },
+                    {
+                        self: "ユダ(垂直J)",
+                        moves: [
+                            { name: "JB", values: [4, 8, 5, 3, 0] },
+                            { name: "HJB", values: [4, 5, 5, 3, 0] },
+                        ],
+                    },
+                    {
+                        self: "サウザー",
+                        moves: [
+                            { name: "JB", values: [4, 8, 8, 0, 0] },
+                            { name: "HJB", values: [4, 5, 8, 1, 0] },
+                        ],
+                    },
+                    {
+                        self: "ハート",
+                        moves: [
+                            { name: "JD", values: [10, 6, 9, 0, 0] },
+                            { name: "HJD", values: [10, 4, 9, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "ハート(垂直J)",
+                        moves: [
+                            { name: "JD", values: [8, 6, 9, 0, 0] },
+                            { name: "HJD", values: [8, 4, 9, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "マミヤ",
+                        moves: [
+                            { name: "JD", values: [4, 8, 9, 1, "空振り"] },
+                            { name: "HJD", values: [4, 5, 9, 1, "空振り"] },
+                        ],
+                    },
+                ],
+                サウザー: [
+                    {
+                        self: "ケン",
+                        moves: [
+                            { name: "JB", values: [4, 6, 10, 0, 0] },
+                            { name: "HJB", values: [4, 4, 10, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "ラオウ",
+                        moves: [
+                            { name: "JB", values: [4, 7, 8, 1, 2] },
+                            { name: "HJB", values: [4, 5, 8, 2, 2] },
+                        ],
+                    },
+                    {
+                        self: "トキ",
+                        moves: [
+                            { name: "JD", values: [4, 6, 9, 0, 0] },
+                            { name: "HJD", values: [4, 4, 9, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "ジャギ",
+                        moves: [
+                            { name: "JD", values: [4, 8, 10, 0, 0] },
+                            { name: "HJD", values: [4, 5, 10, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "シン",
+                        moves: [
+                            { name: "JB", values: [4, 8, 10, 0, 0] },
+                            { name: "HJB", values: [4, 5, 10, 0, 0] },
+                            { name: "JD", values: [4, 8, 11, 0, 0] },
+                            { name: "HJD", values: [4, 5, 11, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "レイ",
+                        moves: [
+                            { name: "JB", values: [4, 7, 5, 5, 0] },
+                            { name: "HJB", values: [4, 6, 5, 5, 0] },
+                            { name: "JD", values: [4, 7, 11, 0, 0] },
+                            { name: "HJD", values: [4, 6, 11, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "ユダ",
+                        moves: [
+                            { name: "JB", values: [5, 8, 5, 2, 0] },
+                            { name: "HJB", values: [5, 5, 5, 2, 0] },
+                        ],
+                    },
+                    {
+                        self: "ユダ(垂直J)",
+                        moves: [
+                            { name: "JB", values: [4, 8, 5, 2, 0] },
+                            { name: "HJB", values: [4, 5, 5, 2, 0] },
+                        ],
+                    },
+                    {
+                        self: "サウザー",
+                        moves: [
+                            { name: "JB", values: [4, 8, 8, 0, 0] },
+                            { name: "HJB", values: [4, 5, 8, 1, 0] },
+                        ],
+                    },
+                    {
+                        self: "ハート",
+                        moves: [
+                            { name: "JD", values: [10, 6, 9, 0, 0] },
+                            { name: "HJD", values: [10, 4, 9, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "ハート(垂直J)",
+                        moves: [
+                            { name: "JD", values: [8, 6, 9, 0, 0] },
+                            { name: "HJD", values: [8, 4, 9, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "マミヤ",
+                        moves: [
+                            { name: "JD", values: [4, 8, 9, 1, "空振り"] },
+                            { name: "HJD", values: [4, 5, 9, 1, "空振り"] },
+                        ],
+                    },
+                ],
+                ハート: [
+                    {
+                        self: "ケン",
+                        moves: [
+                            { name: "JB", values: [4, 6, 10, 0, 0] },
+                            { name: "HJB", values: [4, 4, 10, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "ラオウ",
+                        moves: [
+                            { name: "JB", values: [4, 7, 8, 0, 0] },
+                            { name: "HJB", values: [4, 5, 8, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "トキ",
+                        moves: [
+                            { name: "JD", values: [4, 6, 9, 0, 0] },
+                            { name: "HJD", values: [4, 4, 9, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "ジャギ",
+                        moves: [
+                            { name: "JD", values: [4, 8, 10, 0, 0] },
+                            { name: "HJD", values: [4, 5, 10, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "シン",
+                        moves: [
+                            { name: "JB", values: [4, 8, 10, 0, 0] },
+                            { name: "HJB", values: [4, 5, 10, 0, 0] },
+                            { name: "JD", values: [4, 8, 11, 0, 0] },
+                            { name: "HJD", values: [4, 5, 11, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "レイ",
+                        moves: [
+                            { name: "JB", values: [4, 7, 5, 3, 0] },
+                            { name: "HJB", values: [4, 6, 5, 3, 0] },
+                            { name: "JD", values: [4, 7, 11, 0, 0] },
+                            { name: "HJD", values: [4, 6, 11, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "ユダ",
+                        moves: [
+                            { name: "JB", values: [5, 8, 5, 0, 0] },
+                            { name: "HJB", values: [5, 5, 5, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "ユダ(垂直J)",
+                        moves: [
+                            { name: "JB", values: [4, 8, 5, 0, 0] },
+                            { name: "HJB", values: [4, 5, 5, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "サウザー",
+                        moves: [
+                            { name: "JB", values: [4, 8, 8, 0, 0] },
+                            { name: "HJB", values: [4, 5, 8, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "ハート",
+                        moves: [
+                            { name: "JD", values: [10, 6, 9, 0, 0] },
+                            { name: "HJD", values: [10, 4, 9, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "ハート(垂直J)",
+                        moves: [
+                            { name: "JD", values: [8, 6, 9, 0, 0] },
+                            { name: "HJD", values: [8, 4, 9, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "マミヤ",
+                        moves: [
+                            { name: "JD", values: [4, 8, 9, 0, 0] },
+                            { name: "HJD", values: [4, 5, 9, 0, 0] },
+                            { name: "JB", values: [4, 8, 5, 0, 0] },
+                            { name: "HJB", values: [4, 5, 5, 0, 0] },
+                        ],
+                    },
+                ],
+                マミヤ: [
+                    {
+                        self: "ケン",
+                        moves: [
+                            { name: "JB", values: [4, 6, 10, 0, "空振り"] },
+                            { name: "HJB", values: [4, 4, 10, 0, "空振り"] },
+                        ],
+                    },
+                    {
+                        self: "ラオウ",
+                        moves: [
+                            { name: "JB", values: [4, 7, 8, 4, 1] },
+                            { name: "HJB", values: [4, 5, 8, 5, 1] },
+                        ],
+                    },
+                    {
+                        self: "トキ",
+                        moves: [
+                            { name: "JD", values: [4, 6, 9, 2, 0] },
+                            { name: "HJD", values: [4, 4, 9, 2, 0] },
+                        ],
+                    },
+                    {
+                        self: "ジャギ",
+                        moves: [
+                            { name: "JD", values: [4, 8, 10, 2, 0] },
+                            { name: "HJD", values: [4, 5, 10, 2, 0] },
+                        ],
+                    },
+                    {
+                        self: "シン",
+                        moves: [
+                            { name: "JB", values: [4, 8, 10, 2, 0] },
+                            { name: "HJB", values: [4, 5, 10, 2, 0] },
+                            { name: "JD", values: [4, 8, 11, 0, 2] },
+                            { name: "HJD", values: [4, 5, 11, 0, 2] },
+                        ],
+                    },
+                    {
+                        self: "レイ",
+                        moves: [
+                            { name: "JB", values: [4, 7, 5, 8, 0] },
+                            { name: "HJB", values: [4, 6, 5, 8, 0] },
+                            { name: "JD", values: [4, 7, 11, 0, 1] },
+                            { name: "HJD", values: [4, 6, 11, 0, 1] },
+                        ],
+                    },
+                    {
+                        self: "ユダ",
+                        moves: [
+                            { name: "JB", values: [5, 8, 5, 6, 0] },
+                            { name: "HJB", values: [5, 5, 5, 6, 0] },
+                        ],
+                    },
+                    {
+                        self: "ユダ(垂直J)",
+                        moves: [
+                            { name: "JB", values: [4, 8, 5, 6, 0] },
+                            { name: "HJB", values: [4, 5, 5, 6, 0] },
+                        ],
+                    },
+                    {
+                        self: "サウザー",
+                        moves: [
+                            { name: "JB", values: [4, 8, 8, 3, 0] },
+                            { name: "HJB", values: [4, 5, 8, 4, 0] },
+                        ],
+                    },
+                    {
+                        self: "ハート",
+                        moves: [
+                            { name: "JD", values: [10, 6, 9, 0, 0] },
+                            { name: "HJD", values: [10, 4, 9, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "ハート(垂直J)",
+                        moves: [
+                            { name: "JD", values: [8, 6, 9, 0, 0] },
+                            { name: "HJD", values: [8, 4, 9, 0, 0] },
+                        ],
+                    },
+                    {
+                        self: "マミヤ",
+                        moves: [
+                            { name: "JD", values: [4, 8, 9, 3, "空振り"] },
+                            { name: "HJD", values: [4, 5, 9, 3, "空振り"] },
+                        ],
+                    },
+                ],
+            };
+
+            const opponentList = Object.keys(frameData);
+
+            function renderOpponentSelect() {
+                const select = document.getElementById("opponentSelect");
+                select.innerHTML = "";
+                opponentList.forEach((name) => {
+                    const opt = document.createElement("option");
+                    opt.value = name;
+                    opt.textContent = name;
+                    select.appendChild(opt);
+                });
+            }
+
+            // 初期化
+            window.addEventListener("DOMContentLoaded", () => {
+                renderOpponentSelect();
+                renderTable(opponentList[0]);
+                document.getElementById("opponentSelect").addEventListener("change", (e) => {
+                    renderTable(e.target.value);
+                });
+            });
+        </script>
+    </body>
+</html>
+

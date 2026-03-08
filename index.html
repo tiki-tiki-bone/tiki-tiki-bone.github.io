@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>対戦動画DBへ移動中</title>
+        <link rel="canonical" href="/match_db/" />
+        <meta http-equiv="refresh" content="0; url=/match_db/" />
+        <script>
+            (() => {
+                const suffix = `${window.location.search || ""}${window.location.hash || ""}`;
+                window.location.replace(`/match_db/${suffix}`);
+            })();
+        </script>
+        <style>
+            body {
+                margin: 0;
+                min-height: 100vh;
+                display: grid;
+                place-items: center;
+                font-family: sans-serif;
+                background: #f5f5f5;
+                color: #222;
+            }
+
+            main {
+                padding: 2rem;
+                text-align: center;
+            }
+
+            a {
+                color: #1f4d99;
+            }
+        </style>
+    </head>
+    <body>
+        <main>
+            <p>対戦動画DBへ移動しています。</p>
+            <p><a href="/match_db/">自動で移動しない場合はこちら</a></p>
+        </main>
+    </body>
+</html>

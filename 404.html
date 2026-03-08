@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Page Not Found</title>
+        <style>
+            body {
+                margin: 0;
+                min-height: 100vh;
+                display: grid;
+                place-items: center;
+                padding: 1.5rem;
+                box-sizing: border-box;
+                font-family: sans-serif;
+                background: #f5f5f5;
+                color: #222;
+            }
+
+            main {
+                width: min(100%, 40rem);
+                background: #fff;
+                border-radius: 12px;
+                box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+                padding: 2rem;
+            }
+
+            h1 {
+                margin: 0 0 1rem;
+                font-size: 1.5rem;
+            }
+
+            p {
+                margin: 0 0 1rem;
+                line-height: 1.6;
+            }
+
+            a {
+                color: #1f4d99;
+            }
+        </style>
+    </head>
+    <body>
+        <main>
+            <h1>Page Not Found</h1>
+            <p id="statusMessage">Check the URL or go to the database top page.</p>
+            <p><a href="/match_db/">Go to Match DB</a></p>
+        </main>
+        <script>
+            (() => {
+                const path = window.location.pathname || "";
+                const legacyPrefix = "/HnKGenerator";
+                const statusMessage = document.getElementById("statusMessage");
+                const legacyRedirects = {
+                    "/HnKGenerator": "/match_db/",
+                    "/HnKGenerator/": "/match_db/",
+                    "/HnKGenerator/index.html": "/match_db/",
+                    "/HnKGenerator/codes.html": "/codes/",
+                    "/HnKGenerator/iad_frame.html": "/iad_frame/",
+                    "/HnKGenerator/opening_matchup.html": "/opening_matchup/",
+                    "/HnKGenerator/mx4sio.html": "/mx4sio/",
+                    "/HnKGenerator/match_db.html": "/match_db/",
+                };
+                const cleanPageMap = {
+                    codes: "/codes/",
+                    generator: "/generator/",
+                    iad_frame: "/iad_frame/",
+                    opening_matchup: "/opening_matchup/",
+                    mx4sio: "/mx4sio/",
+                    match_db: "/match_db/",
+                };
+                const matchDbSections = new Set([
+                    "about",
+                    "character",
+                    "character_usage",
+                    "character_usage_upper",
+                    "correction",
+                    "correction_result",
+                    "correction_review",
+                    "diagram",
+                    "diagram_upper",
+                    "match",
+                    "matchup",
+                    "matchups",
+                    "player",
+                    "playlist",
+                    "rankings",
+                    "video",
+                    "winrate_top30",
+                ]);
+                const redirectTo = (target) => {
+                    const suffix = `${window.location.search || ""}${window.location.hash || ""}`;
+                    window.location.replace(`${target}${suffix}`);
+                };
+                const setRedirectMessage = () => {
+                    if (statusMessage) {
+                        statusMessage.textContent = "Redirecting from the legacy HnKGenerator URL...";
+                    }
+                };
+
+                if (legacyRedirects[path]) {
+                    setRedirectMessage();
+                    redirectTo(legacyRedirects[path]);
+                    return;
+                }
+
+                if (!path.startsWith(`${legacyPrefix}/`)) {
+                    return;
+                }
+
+                const suffixPath = path.slice(legacyPrefix.length + 1);
+                const segments = suffixPath.split("/").filter(Boolean);
+                const first = segments[0] || "";
+
+                if (!first) {
+                    setRedirectMessage();
+                    redirectTo("/match_db/");
+                    return;
+                }
+
+                if (cleanPageMap[first]) {
+                    setRedirectMessage();
+                    redirectTo(cleanPageMap[first]);
+                    return;
+                }
+
+                if (first !== "match_db") {
+                    return;
+                }
+
+                if (segments.length === 1) {
+                    setRedirectMessage();
+                    redirectTo("/match_db/");
+                    return;
+                }
+
+                const second = segments[1];
+                if (!matchDbSections.has(second)) {
+                    return;
+                }
+
+                setRedirectMessage();
+                redirectTo(`/match_db/${second}/`);
+            })();
+        </script>
+    </body>
+</html>

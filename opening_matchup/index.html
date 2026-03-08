@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5249633077991567" crossorigin="anonymous"></script>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-NM6S92KNW1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag("js", new Date());
+            gtag("config", "G-NM6S92KNW1");
+        </script>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <style>
+            body {
+                font-family: "Helvetica Neue", sans-serif;
+                margin: 0;
+                padding: 0;
+                background: #f9f9f9;
+                color: #333;
+            }
+            html {
+                touch-action: manipulation;
+            }
+            header {
+                background-color: #333;
+                color: white;
+                padding: 2rem 1rem 1rem;
+                text-align: center;
+                position: relative;
+            }
+            nav {
+                display: flex;
+                justify-content: center;
+                gap: 1rem;
+                flex-wrap: nowrap;
+            }
+            nav a {
+                color: white;
+                text-decoration: none;
+                font-weight: 600;
+                padding: 0.4rem 1rem;
+                border: 2px solid transparent;
+                border-radius: 6px;
+                transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+                font-size: 1rem;
+                user-select: none;
+            }
+            nav a:hover,
+            nav a:focus {
+                background-color: #ffb347;
+                color: #333;
+                border-color: #ffb347;
+                outline: none;
+            }
+            .menu-toggle {
+                display: none;
+                position: absolute;
+                top: 0.5rem;
+                right: 0.5rem;
+                width: 30px;
+                height: 22px;
+                cursor: pointer;
+                flex-direction: column;
+                justify-content: space-between;
+                user-select: none;
+                z-index: 10;
+            }
+            .menu-toggle span {
+                display: block;
+                height: 4px;
+                background: white;
+                border-radius: 2px;
+            }
+            @media (max-width: 600px) {
+                nav {
+                    position: absolute;
+                    top: 100%;
+                    left: 0;
+                    right: 0;
+                    background-color: #333;
+                    flex-direction: column;
+                    display: none;
+                    margin: 0;
+                    padding: 0.5rem 0;
+                }
+                nav a {
+                    padding: 1rem;
+                    border: none;
+                    text-align: center;
+                    font-size: 1.2rem;
+                }
+                nav.show {
+                    display: flex;
+                }
+                .menu-toggle {
+                    display: flex;
+                }
+                h1 {
+                    font-size: 18px;
+                    margin-bottom: 10px;
+                }
+                main {
+                    max-width: 800px;
+                    margin: 2rem auto;
+                    padding: 1rem;
+                    background: white;
+                    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+                }
+                nav a {
+                    display: block;
+                    margin: 10px 0;
+                }
+            }
+            main {
+                max-width: 800px;
+                margin: 2rem auto;
+                padding: 0.5rem 0.5rem 1rem 0.5rem;
+                background: white;
+                box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+                font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+                    "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif !important;
+                background-color: #f9f9f9;
+                color: #333;
+            }
+            .footer {
+                text-align: center;
+                color: #666;
+                margin-top: 2rem;
+                font-size: 0.9rem;
+            }
+            canvas#checker {
+                display: block;
+                margin: 0 auto 8px auto;
+                max-width: min(100vw, 800px);
+                max-height: min(75vw, 600px);
+                width: 100%;
+                height: auto;
+                aspect-ratio: 4 / 3;
+                background-color: white;
+                box-sizing: border-box;
+            }
+            @media (max-width: 900px) {
+                main {
+                    max-width: 100vw;
+                    padding: 0.5rem 2vw 1rem 2vw;
+                }
+                canvas#checker {
+                    max-width: 96vw;
+                }
+            }
+            @media (max-width: 600px) {
+                main {
+                    max-width: 100vw;
+                    padding: 0.2rem 2vw 0.5rem 2vw;
+                }
+                canvas#checker {
+                    max-width: 96vw;
+                    max-height: 75vw;
+                }
+            }
+            .controls-wrap {
+                margin: 0.2em auto 0.7em auto;
+                display: flex;
+                flex-direction: column;
+                gap: 0.25em;
+                max-width: 640px;
+            }
+            .btn-row {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.18em;
+                margin-bottom: 0.05em;
+            }
+            .select-row {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.35em;
+                margin-bottom: 0.03em;
+            }
+            .select-block {
+                display: flex;
+                flex-direction: column;
+                gap: 0.07em;
+                min-width: 120px;
+            }
+            .checkbox-row {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.5em;
+                margin-top: 0.05em;
+            }
+            @media (max-width: 600px) {
+                .controls-wrap {
+                    gap: 0.5em;
+                }
+                .btn-row {
+                    flex-direction: row;
+                    gap: 0.18em;
+                }
+                .select-row {
+                    flex-direction: column;
+                    gap: 0.3em;
+                }
+                .checkbox-row {
+                    flex-direction: row;
+                    gap: 0.3em;
+                }
+                .select-block {
+                    min-width: 90px;
+                    width: 100%;
+                }
+                .main-controls-row {
+                    flex-direction: row;
+                    justify-content: space-between;
+                    align-items: flex-end;
+                    gap: 0.18em;
+                }
+                .main-controls-row .select-block {
+                    flex-direction: column;
+                    min-width: 90px;
+                    width: auto;
+                }
+                @media (max-width: 600px) {
+                    .main-controls-row {
+                        flex-wrap: wrap;
+                    }
+                    .main-controls-row .btn-row {
+                        flex: 1 1 100%;
+                        min-width: 120px;
+                        margin-bottom: 0.1em;
+                    }
+                    .main-controls-row .select-block {
+                        flex: 1 1 0;
+                        min-width: 90px;
+                        width: auto;
+                        margin-right: 0.2em;
+                    }
+                }
+            }
+            .main-controls-row {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.3em 0.4em;
+                align-items: flex-end;
+                margin-bottom: 0.1em;
+            }
+            @media (max-width: 900px) {
+                .main-controls-row {
+                    gap: 0.18em 0.18em;
+                }
+            }
+        </style>
+        <script src="/js/OpeningMatchupChecker.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <title>北斗の拳 開幕行動チェッカー</title>
+            <script src="/js/site-header.js" defer data-site-header></script>
+    </head>
+    <body>
+        <div id="siteHeader" data-title="北斗の拳 開幕行動チェッカー"></div>
+        <main>
+            <section>
+                <canvas id="checker" style="background-color: white"></canvas>
+                <div class="controls-wrap">
+                    <div class="main-controls-row">
+                        <div class="btn-row">
+                            <input type="button" value="再生" onclick="start();" />
+                            <input type="button" value="停止" onclick="stop();" />
+                            <input type="button" value="次フレーム" onclick="next();" />
+                            <input type="button" value="リセット" onclick="reset();" />
+                        </div>
+                        <div class="select-block">
+                            <label for="1P_C">1Pキャラ</label>
+                            <select id="1P_C" onchange="setChar(0, value);"></select>
+                        </div>
+                        <div class="select-block">
+                            <label for="2P_C">2Pキャラ</label>
+                            <select id="2P_C" onchange="setChar(1, value);"></select>
+                        </div>
+                    </div>
+                    <div class="select-row">
+                        <div class="select-block">
+                            <label for="1P_M">1P行動</label>
+                            <select id="1P_M" onchange="setState(0, value);"></select>
+                        </div>
+                        <div class="select-block">
+                            <label for="2P_M">2P行動</label>
+                            <select id="2P_M" onchange="setState(1, value);"></select>
+                        </div>
+                    </div>
+                    <div class="checkbox-row">
+                        <label for="p1boost">
+                            <input
+                                type="checkbox"
+                                id="p1boost"
+                                onclick="setBoost(0, this.checked);"
+                                disabled
+                            />1P移動ブースト
+                        </label>
+                        <label for="p2boost">
+                            <input
+                                type="checkbox"
+                                id="p2boost"
+                                onclick="setBoost(1, this.checked);"
+                                disabled
+                            />2P移動ブースト
+                        </label>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <h2>備考</h2>
+                <p>
+                    ・技硬直が終了し次第、ガードモーションに移行します。<br />
+                    ・「相打ち（勝敗ランダム）」は取得ラウンド数が同数の場合です。取得ラウンド数が相手より少ない場合は勝ちとなります。<br />
+                    ・ガード時、技の中下段の区別はしていません。<br />
+                    ・実機の挙動を完全に再現するものではありません。振り向き処理や生ブースト→キャンセル行動は実装していません。<br />
+                    ・不具合や要望、実機と勝敗の結果が異なる組み合わせなどありましたら<a
+                        href="https://twitter.com/tiki_tiki_bone"
+                        target="_blank"
+                        >@tiki_tiki_bone</a
+                    >にご連絡頂けますと幸いです。
+                </p>
+            </section>
+        </main>
+        <div class="footer">
+            ご意見・ご要望などありましたら、<a
+                href="https://twitter.com/tiki_tiki_bone"
+                target="_blank"
+                >@tiki_tiki_bone</a
+            >
+            までお知らせください。
+        </div>
+        <script>
+</script>
+        <script>
+            const charOptions = [
+                { value: "0", label: "ケンシロウ" },
+                { value: "1", label: "ラオウ" },
+                { value: "2", label: "トキ" },
+                { value: "3", label: "ジャギ" },
+                { value: "4", label: "シン" },
+                { value: "5", label: "レイ" },
+                { value: "6", label: "ユダ" },
+                { value: "7", label: "サウザー" },
+                { value: "8", label: "ハート様" },
+                { value: "9", label: "マミヤ" },
+            ];
+            const moveOptions = [
+                { value: "stand", label: "立ち" },
+                { value: "walk_0", label: "前歩き" },
+                { value: "2g_0", label: "しゃがみガード" },
+                { value: "crouch", label: "しゃがみ" },
+                { value: "5g_0", label: "立ちガード" },
+                { value: "to_bj", label: "バックジャンプ" },
+                { value: "to_bj_g", label: "バックジャンプガード" },
+                { value: "to_vj", label: "垂直ジャンプ" },
+                { value: "to_vj_g", label: "垂直ジャンプガード" },
+                { value: "to_fj", label: "前ジャンプ" },
+                { value: "to_fj_g", label: "前ジャンプガード" },
+                { value: "5a", label: "遠A" },
+                { value: "5b", label: "遠B" },
+                { value: "5c", label: "遠C" },
+                { value: "5c_2", label: "最大溜め遠C" },
+                { value: "5d", label: "遠D" },
+                { value: "2a", label: "2A" },
+                { value: "2b", label: "2B" },
+                { value: "2c", label: "2C" },
+                { value: "2c_2", label: "最大溜め遠C" },
+                { value: "2d", label: "2D" },
+                { value: "6a", label: "6A" },
+                { value: "6b", label: "6B" },
+                { value: "6c", label: "6C" },
+                { value: "6d", label: "6D" },
+                { value: "ab", label: "ヘヴィーストライク" },
+                { value: "ac", label: "グレイヴシュート" },
+                { value: "bd", label: "掴み投げ" },
+                { value: "cd_0", label: "バニシングストライク" },
+                { value: "cd_2", label: "最大溜めバニシングストライク" },
+                { value: "e", label: "ブースト" },
+                { value: "provoke", label: "挑発" },
+            ];
+            window.addEventListener("DOMContentLoaded", () => {
+                // キャラ選択肢生成
+                ["1P_C", "2P_C"].forEach((id) => {
+                    const sel = document.getElementById(id);
+                    charOptions.forEach((opt) => {
+                        const o = document.createElement("option");
+                        o.value = opt.value;
+                        o.textContent = opt.label;
+                        sel.appendChild(o);
+                    });
+                });
+
+                // 行動プルダウンのoptionをキャラごとに再生成する関数
+                function updateMoveOptions(pulldownId, charId) {
+                    const sel = document.getElementById(pulldownId);
+                    // 一旦全option削除
+                    while (sel.firstChild) sel.removeChild(sel.firstChild);
+                    // キャラごとに有効なoptionのみ追加
+                    moveOptions.forEach((opt) => {
+                        // 最大溜め遠Cは常にグレーアウトで表示
+                        if ((opt.value === "5c_2" || opt.value === "2c_2") && charId != "8") {
+                            return;
+                        }
+                        if (opt.value === "6d" && charId !== "2") return;
+                        else if (opt.value === "6c" && charId !== "9") return;
+                        else if (opt.value === "6b" && parseInt(charId, 10) >= 5 && charId !== "7")
+                            return;
+                        else if (opt.value === "bd" && (charId === "2" || charId === "9")) return;
+                        else if (charId === "8" && (opt.value === "e" || opt.value == "ac")) return;
+                        const o = document.createElement("option");
+                        o.value = opt.value;
+                        o.textContent = opt.label;
+                        if (opt.value === "5c_2" || opt.value === "2c_2") {
+                            o.disabled = true;
+                            o.style.color = "#aaa";
+                        }
+                        sel.appendChild(o);
+                    });
+                    // 必ず先頭optionを選択し、changeイベントを発火
+                    if (sel.options.length > 0) {
+                        sel.selectedIndex = 0;
+                        sel.dispatchEvent(new Event("change"));
+                    }
+                }
+
+                // キャラ変更時に行動プルダウンの選択肢を再生成
+                ["1P_C", "2P_C"].forEach((id, idx) => {
+                    const sel = document.getElementById(id);
+                    sel.addEventListener("change", function () {
+                        updateMoveOptions(idx === 0 ? "1P_M" : "2P_M", sel.value);
+                    });
+                });
+
+                // 初期化時に行動プルダウン生成
+                ["1P_M", "2P_M"].forEach((id, idx) => {
+                    const charSel = document.getElementById(idx === 0 ? "1P_C" : "2P_C");
+                    updateMoveOptions(id, charSel.value);
+                });
+            });
+        </script>
+    </body>
+</html>
+
+

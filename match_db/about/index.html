@@ -1,0 +1,584 @@
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <base href="../" />
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-NM6S92KNW1"></script>
+        <script src="/js/api-config.local.js"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag("js", new Date());
+            gtag("config", "G-NM6S92KNW1");
+        </script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>北斗の拳 対戦動画DB - 対戦動画DBについて</title>
+        <style>
+            :root {
+                --ink: #222;
+                --muted: #6b6b6b;
+                --line: #d6d6d6;
+                --card: #ffffff;
+                --surface: #f7f7f7;
+                --accent: #ffb347;
+            }
+
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: sans-serif;
+                color: var(--ink);
+                background-color: #f3f3f3;
+                margin: 0;
+                padding: 0;
+            }
+
+            header {
+                background-color: #333;
+                color: #ffffff;
+                padding: 2rem 1rem 1rem;
+                text-align: center;
+                position: relative;
+            }
+
+            #navMenu {
+                display: flex;
+                justify-content: center;
+                gap: 1rem;
+                flex-wrap: nowrap;
+            }
+
+            #navMenu a {
+                color: #ffffff;
+                text-decoration: none;
+                font-weight: 600;
+                padding: 0.4rem 1rem;
+                border: 2px solid transparent;
+                border-radius: 4px;
+                transition:
+                    background-color 0.3s ease,
+                    border-color 0.3s ease,
+                    color 0.3s ease;
+                font-size: 1rem;
+                user-select: none;
+            }
+
+            #navMenu a:hover,
+            #navMenu a:focus {
+                background-color: var(--accent);
+                color: #333;
+                border-color: var(--accent);
+                outline: none;
+            }
+
+            .menu-toggle {
+                display: none;
+                position: absolute;
+                top: 0.5rem;
+                right: 0.5rem;
+                width: 30px;
+                height: 22px;
+                cursor: pointer;
+                flex-direction: column;
+                justify-content: space-between;
+                user-select: none;
+                z-index: 10;
+            }
+
+            .menu-toggle span {
+                display: block;
+                height: 4px;
+                background: #ffffff;
+                border-radius: 2px;
+            }
+
+            @media (max-width: 600px) {
+                #navMenu {
+                    position: absolute;
+                    top: 100%;
+                    left: 0;
+                    right: 0;
+                    background-color: #333;
+                    flex-direction: column;
+                    display: none;
+                    margin: 0;
+                    padding: 0.5rem 0;
+                }
+
+                #navMenu a {
+                    padding: 1rem;
+                    border: none;
+                    text-align: center;
+                    font-size: 1.1rem;
+                }
+
+                #navMenu.show {
+                    display: flex;
+                }
+
+                .menu-toggle {
+                    display: flex;
+                }
+
+                h1 {
+                    font-size: 18px;
+                    margin-bottom: 10px;
+                }
+            }
+
+            main {
+                max-width: 900px;
+                margin: 2rem auto;
+                padding: 1.2rem;
+                background: var(--card);
+                border: 1px solid var(--line);
+                border-radius: 8px;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+            }
+
+            section {
+                margin-bottom: 1.6rem;
+            }
+
+            h2 {
+                border: none;
+                background: var(--surface);
+                padding: 0.45rem 0.8rem;
+                border-left: 6px solid var(--accent);
+                border-radius: 6px;
+                font-size: 1.05rem;
+            }
+
+            .panel {
+                background: var(--card);
+                border: 1px solid var(--line);
+                border-radius: 8px;
+                padding: 1rem;
+                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.06);
+            }
+
+            .muted {
+                color: var(--muted);
+            }
+
+            ul {
+                padding-left: 1.3rem;
+                margin: 0.5rem 0 0;
+            }
+
+            li {
+                margin-bottom: 0.4rem;
+            }
+
+            a {
+                color: #1f4d99;
+                text-decoration: none;
+            }
+
+            a:hover,
+            a:focus {
+                color: #0f244d;
+                text-decoration: underline;
+            }
+
+            .qa-list {
+                display: grid;
+                gap: 0.8rem;
+            }
+
+            .qa-item {
+                border: 1px solid var(--line);
+                border-radius: 8px;
+                padding: 0.8rem 1rem;
+                background: #fff;
+            }
+
+            .qa-item.is-highlight {
+                border-color: #ffb347;
+                background: #fff4e3;
+                box-shadow: 0 0 0 2px rgba(255, 179, 71, 0.35);
+                animation: qa-highlight-fade 2.5s ease-out 0.2s forwards;
+            }
+
+            @keyframes qa-highlight-fade {
+                0% {
+                    border-color: #ffb347;
+                    background: #fff4e3;
+                    box-shadow: 0 0 0 2px rgba(255, 179, 71, 0.35);
+                }
+                6% {
+                    border-color: var(--line);
+                    background: #fff;
+                    box-shadow: none;
+                }
+                12%,
+                80% {
+                    border-color: #ffb347;
+                    background: #fff4e3;
+                    box-shadow: 0 0 0 2px rgba(255, 179, 71, 0.35);
+                }
+                100% {
+                    border-color: var(--line);
+                    background: #fff;
+                    box-shadow: none;
+                }
+            }
+
+            .qa-line {
+                display: grid;
+                grid-template-columns: auto 1fr;
+                column-gap: 0.5rem;
+                align-items: start;
+            }
+
+            .qa-label {
+                font-weight: 700;
+                white-space: nowrap;
+            }
+
+            .qa-q {
+                font-weight: 700;
+                margin: 0 0 0.4rem;
+            }
+
+            .qa-a {
+                margin: 0;
+                color: var(--muted);
+            }
+
+            .channel-list {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                display: grid;
+                gap: 0;
+            }
+
+            .channel-item {
+                padding: 0.3rem 0.1rem;
+            }
+
+            .channel-item + .channel-item {
+                border-top: 1px dashed var(--line);
+            }
+
+            .channel-item a {
+                display: inline-block;
+                color: #575e6d;
+                font-size: 0.93rem;
+                text-decoration: none;
+            }
+
+            .channel-item a:hover,
+            .channel-item a:focus {
+                color: #3f4654;
+                text-decoration: underline;
+            }
+
+            .donation-panel .donation-widget-slot {
+                margin-top: 0.65rem;
+                display: flex;
+                justify-content: center;
+            }
+
+            .donation-panel .donation-widget-slot a[data-ofuse-widget-button] {
+                display: block;
+                width: fit-content;
+                margin: 0;
+            }
+        </style>
+        <script src="/js/site-header.js" defer data-site-header></script>
+    </head>
+    <body>
+        <div id="siteHeader" data-title="北斗の拳 対戦動画DB"></div>
+        <main>
+            <section>
+                <h2>対戦動画DBについて</h2>
+                <div class="panel">
+                    <p>
+                        北斗の拳
+                        対戦動画DBはAC北斗の拳の対戦動画に収録されている試合を検索できるデータベースです。<br />
+                        プレイヤー/キャラクターごとの戦績や代表試合などを確認できます。
+                    </p>
+                    <p class="muted">
+                        掲載情報は随時更新されます。反映までに時間がかかる場合があります。
+                    </p>
+                </div>
+            </section>
+
+            <section>
+                <h2>できること</h2>
+                <div class="panel">
+                    <ul>
+                        <li>対戦動画の検索・一覧表示</li>
+                        <li>プレイヤー/キャラクターごとの戦績表示</li>
+                        <li>対戦カードの統計（勝率・対戦数）</li>
+                        <li>検索結果の試合の連続再生</li>
+                        <li>試合情報の訂正提案</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section>
+                <h2>データについて</h2>
+                <div class="panel">
+                    <ul>
+                        <li>
+                            YouTubeにアップロードされた動画のみ対象です。<br />主に<a
+                                href="about/#targetYoutubeChannel"
+                                >集計対象のYoutubeチャンネル</a
+                            >に投稿された動画を集計しています。
+                        </li>
+                        <li>
+                            主に2020年前後以降の動画を対象にしておりますが、リクエスト等あればより古い動画も対応いたします。
+                        </li>
+                        <li>
+                            収集した対戦動画をもとに自動集計+目視チェックしています。<br />不備や誤りがある場合は訂正提案からお知らせください。
+                        </li>
+                        <li>
+                            プレイヤー名は画面内オーバーレイをもとに収集しております<br />そのため野試合やプレイヤー名の表記がない動画の試合はプレイヤー名を「不明」としております。
+                        </li>
+                        <li>試合途中から収録されている試合は一部を除き除外しております。</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section>
+                <h2>Q&amp;A</h2>
+                <div class="panel qa-list">
+                    <div class="qa-item" id="qa1">
+                        <p class="qa-q qa-line">
+                            <span class="qa-label">Q.</span>
+                            <span>勝率や勝敗数などの情報を知られたくありません</span>
+                        </p>
+                        <p class="qa-a qa-line">
+                            <span class="qa-label">A.</span>
+                            <span>
+                                プレイヤーページの勝率や勝敗数を知られたくない場合は非表示にすることが可能です。<br />
+                                <a
+                                    href="https://twitter.com/tiki_tiki_bone"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >@tiki_tiki_bone</a
+                                >までDMにてお知らせください。
+                            </span>
+                        </p>
+                    </div>
+                    <div class="qa-item">
+                        <p class="qa-q qa-line">
+                            <span class="qa-label">Q.</span>
+                            <span>上位勢とは何ですか？</span>
+                        </p>
+                        <p class="qa-a qa-line">
+                            <span class="qa-label">A.</span>
+                            <span
+                                >独自の指標に基づいて算出しております。指標は変更される場合があります。</span
+                            >
+                        </p>
+                    </div>
+                    <div class="qa-item">
+                        <p class="qa-q qa-line">
+                            <span class="qa-label">Q.</span>
+                            <span>特定の動画の情報がありません</span>
+                        </p>
+                        <p class="qa-a qa-line">
+                            <span class="qa-label">A.</span>
+                            <span
+                                >現在<a href="about/#targetYoutubeChannel"
+                                    >集計対象のYoutubeチャンネル</a
+                                >の動画を集計中ですので、該当する場合は集計までお待ち下さい。<br />
+                                該当しない場合は別途集計しますのでDMか任意の試合の訂正提案の備考欄にてお知らせください。</span
+                            >
+                        </p>
+                    </div>
+                    <div class="qa-item">
+                        <p class="qa-q qa-line">
+                            <span class="qa-label">Q.</span>
+                            <span>情報が間違っています</span>
+                        </p>
+                        <p class="qa-a qa-line">
+                            <span class="qa-label">A.</span>
+                            <span
+                                >試合情報の右下にある旗マークアイコンから訂正提案をお送りください。<br />また、プレイヤー名が「不明」な試合についてプレイヤーが特定できる場合も同じく訂正提案お送りいただけますと幸いです。</span
+                            >
+                        </p>
+                    </div>
+                    <div class="qa-item">
+                        <p class="qa-q qa-line">
+                            <span class="qa-label">Q.</span>
+                            <span>ページの読み込みに失敗することがあります</span>
+                        </p>
+                        <p class="qa-a qa-line">
+                            <span class="qa-label">A.</span>
+                            <span
+                                >フリーのDBサービスを使用しているため、稀にDBへの接続がタイムアウトすることがあります。<br />時間をおいてお試しください。</span
+                            >
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2 id="targetYoutubeChannel">集計対象のyoutubeチャンネル</h2>
+                <div class="panel">
+                    <ul class="channel-list">
+                        <li class="channel-item">
+                            <a
+                                href="https://www.youtube.com/@game-newton9875"
+                                target="_blank"
+                                rel="noopener"
+                                >ゲーム ニュートンGAME-NEWTON</a
+                            >
+                        </li>
+                        <li class="channel-item">
+                            <a
+                                href="https://www.youtube.com/@gamespotversus"
+                                target="_blank"
+                                rel="noopener"
+                                >西日暮里 ゲームスポット バーサス</a
+                            >
+                        </li>
+                        <li class="channel-item">
+                            <a href="https://www.youtube.com/@GCTBD2" target="_blank" rel="noopener"
+                                >宮城格ゲーちゃんねる　GC東部配信</a
+                            >
+                        </li>
+                        <li class="channel-item">
+                            <a
+                                href="https://www.youtube.com/@Port24Yagoto"
+                                target="_blank"
+                                rel="noopener"
+                                >Port24 Yagoto</a
+                            >
+                        </li>
+                        <li class="channel-item">
+                            <a
+                                href="https://www.youtube.com/@big-one2ndchannel128"
+                                target="_blank"
+                                rel="noopener"
+                                >BIG-ONE2ndCHANNEL1</a
+                            >
+                        </li>
+                        <li class="channel-item">
+                            <a
+                                href="https://www.youtube.com/@big-one2ndchannel260"
+                                target="_blank"
+                                rel="noopener"
+                                >BIG-ONE2nd CHANNEL2</a
+                            >
+                        </li>
+                        <li class="channel-item">
+                            <a
+                                href="https://www.youtube.com/@big-one2ndchannel335"
+                                target="_blank"
+                                rel="noopener"
+                                >BIG-ONE2nd CHANNEL3</a
+                            >
+                        </li>
+                        <li class="channel-item">
+                            <a
+                                href="https://www.youtube.com/@gamecenterWILL"
+                                target="_blank"
+                                rel="noopener"
+                                >ゲームセンターWILL</a
+                            >
+                        </li>
+                        <li class="channel-item">
+                            <a
+                                href="https://www.youtube.com/@%E7%99%BD%E4%B8%8A%E9%87%8E"
+                                target="_blank"
+                                rel="noopener"
+                                >白上野</a
+                            >
+                        </li>
+                        <li class="channel-item">
+                            <a
+                                href="https://www.youtube.com/@%E3%83%9E%E3%82%A8%E3%82%B1%E3%83%B3-l1m"
+                                target="_blank"
+                                rel="noopener"
+                                >マエケン</a
+                            >
+                        </li>
+                        <li class="channel-item">
+                            <a
+                                href="https://www.youtube.com/@K.I_HKT"
+                                target="_blank"
+                                rel="noopener"
+                                >K.I</a
+                            >
+                        </li>
+                        <li class="channel-item">
+                            <a
+                                href="https://www.youtube.com/@sham-xv2nv"
+                                target="_blank"
+                                rel="noopener"
+                                >s ham</a
+                            >
+                        </li>
+                        <li class="channel-item">
+                            <a
+                                href="https://www.youtube.com/@takuma3344"
+                                target="_blank"
+                                rel="noopener"
+                                >権王</a
+                            >
+                        </li>
+                        <li class="channel-item">
+                            <a
+                                href="https://www.youtube.com/channel/UCKAGTGiATqokbd_QqLgNg8A/"
+                                target="_blank"
+                                rel="noopener"
+                                >宮城マミヤチャンネル</a
+                            >
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <section>
+                <h2>サイトについて</h2>
+                <div class="panel donation-panel">
+                    対戦動画DBの維持・改善（データ収集、保守、機能追加）のためにご支援頂けると有難いです。
+                    <div class="donation-widget-slot">
+                        <a
+                            data-ofuse-widget-button
+                            href="https://ofuse.me/o?uid=152633"
+                            data-ofuse-id="152633"
+                            data-ofuse-color="dark"
+                            data-ofuse-text="応援を送る"
+                            data-ofuse-style="rectangle"
+                            >応援を送る</a
+                        >
+                        <script
+                            async
+                            src="https://ofuse.me/assets/platform/widget.js"
+                            charset="utf-8"
+                        ></script>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <script>
+            window.addEventListener("load", () => {
+                if (window.location.hash === "#qa1") {
+                    const qa1 = document.getElementById("qa1");
+                    if (qa1) {
+                        qa1.scrollIntoView({ block: "start", behavior: "smooth" });
+                        window.setTimeout(() => {
+                            qa1.classList.add("is-highlight");
+                            window.setTimeout(() => {
+                                qa1.classList.remove("is-highlight");
+                            }, 2500);
+                        }, 80);
+                    }
+                }
+            });
+        </script>
+    </body>
+</html>
