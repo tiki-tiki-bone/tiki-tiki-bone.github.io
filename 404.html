@@ -49,94 +49,35 @@
         <script>
             (() => {
                 const path = window.location.pathname || "";
-                const legacyPrefix = "/HnKGenerator";
                 const statusMessage = document.getElementById("statusMessage");
-                const legacyRedirects = {
-                    "/HnKGenerator": "/match_db/",
-                    "/HnKGenerator/": "/match_db/",
-                    "/HnKGenerator/index.html": "/match_db/",
+                const legacyPattern = /\/HnKGenerator(?=\/|$)|\/HnkGenerator(?=\/|$)/;
+                const cleanRedirects = {
+                    "/codes.html": "/codes/",
+                    "/iad_frame.html": "/iad_frame/",
+                    "/opening_matchup.html": "/opening_matchup/",
                 };
-                const cleanPageMap = {
-                    codes: "/codes/",
-                    generator: "/generator/",
-                    iad_frame: "/iad_frame/",
-                    opening_matchup: "/opening_matchup/",
-                    mx4sio: "/mx4sio/",
-                    match_db: "/match_db/",
-                };
-                const matchDbSections = new Set([
-                    "about",
-                    "character",
-                    "character_usage",
-                    "character_usage_upper",
-                    "correction",
-                    "correction_result",
-                    "correction_review",
-                    "diagram",
-                    "diagram_upper",
-                    "match",
-                    "matchup",
-                    "matchups",
-                    "player",
-                    "playlist",
-                    "rankings",
-                    "video",
-                    "winrate_top30",
-                ]);
                 const redirectTo = (target) => {
                     const suffix = `${window.location.search || ""}${window.location.hash || ""}`;
                     window.location.replace(`${target}${suffix}`);
                 };
-                const setRedirectMessage = () => {
-                    if (statusMessage) {
-                        statusMessage.textContent = "Redirecting from the legacy HnKGenerator URL...";
-                    }
-                };
 
-                if (legacyRedirects[path]) {
-                    setRedirectMessage();
-                    redirectTo(legacyRedirects[path]);
+                if (!legacyPattern.test(path)) {
                     return;
                 }
 
-                if (!path.startsWith(`${legacyPrefix}/`)) {
-                    return;
+                let targetPath = path.replace(legacyPattern, "");
+                if (!targetPath) {
+                    targetPath = "/";
                 }
 
-                const suffixPath = path.slice(legacyPrefix.length + 1);
-                const segments = suffixPath.split("/").filter(Boolean);
-                const first = segments[0] || "";
-                const normalizedFirst = first.replace(/\.html$/i, "");
-
-                if (!first) {
-                    setRedirectMessage();
-                    redirectTo("/match_db/");
-                    return;
+                if (cleanRedirects[targetPath]) {
+                    targetPath = cleanRedirects[targetPath];
                 }
 
-                if (cleanPageMap[normalizedFirst]) {
-                    setRedirectMessage();
-                    redirectTo(cleanPageMap[normalizedFirst]);
-                    return;
+                if (statusMessage) {
+                    statusMessage.textContent = "Redirecting from the legacy HnKGenerator URL...";
                 }
-
-                if (first !== "match_db") {
-                    return;
-                }
-
-                if (segments.length === 1) {
-                    setRedirectMessage();
-                    redirectTo("/match_db/");
-                    return;
-                }
-
-                const second = segments[1];
-                if (!matchDbSections.has(second)) {
-                    return;
-                }
-
-                setRedirectMessage();
-                redirectTo(`/match_db/${second}/`);
+                redirectTo(targetPath);
             })();
         </script>
     </body>
