@@ -2286,7 +2286,7 @@ const API_BASE = window.API_BASE || "https://hnk-match-db-api.tikibone.workers.d
 
                 params.set("ch", cleanChar);
 
-                return `${window.location.pathname}?${params.toString()}`;
+                return `./?${params.toString()}`;
 
             }
 
@@ -2312,7 +2312,7 @@ const API_BASE = window.API_BASE || "https://hnk-match-db-api.tikibone.workers.d
 
                 params.set("ch2", cleanChar);
 
-                return `${window.location.pathname}?${params.toString()}`;
+                return `./?${params.toString()}`;
 
             }
 
@@ -2356,7 +2356,7 @@ const API_BASE = window.API_BASE || "https://hnk-match-db-api.tikibone.workers.d
 
                 if (winnerValue) params.set("w", winnerValue);
 
-                return `${window.location.pathname}?${params.toString()}`;
+                return `./?${params.toString()}`;
 
             }
 

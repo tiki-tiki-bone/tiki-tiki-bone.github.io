@@ -221,7 +221,7 @@
             if (winnerFilter && winnerFilter !== "all") {
                 params.set("w", winnerFilter);
             }
-            return `${window.location.pathname}?${params.toString()}`;
+            return `./?${params.toString()}`;
         }
 
         function appendStatLink(cell, value, href) {

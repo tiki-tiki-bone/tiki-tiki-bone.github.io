@@ -110,7 +110,7 @@ const IMAGE_BASE = "/images/";
         params.set("mode", "card");
         params.set("ch1", String(leftId || "").trim());
         params.set("ch2", String(rightId || "").trim());
-        return `${window.location.pathname}?${params.toString()}`;
+        return `./?${params.toString()}`;
     }
 
     function formatRate(rate) {
