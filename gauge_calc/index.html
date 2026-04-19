@@ -167,6 +167,44 @@
                 font-weight: 700;
             }
 
+            .accumulation-control {
+                position: relative;
+                display: flex;
+                align-items: center;
+            }
+
+            .accumulation-control .js-accumulation {
+                padding-right: 0.8rem;
+            }
+
+            .accumulation-step {
+                display: none;
+                position: absolute;
+                right: 0.42rem;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 1.72rem;
+                height: 1.72rem;
+                border: 1px solid #d8dde8;
+                border-radius: 10px;
+                background: linear-gradient(180deg, #ffffff 0%, #f5f7fb 100%);
+                color: #5e6676;
+                font-size: 0.9rem;
+                font-weight: 700;
+                line-height: 1;
+                padding: 0;
+                box-shadow: 0 1px 2px rgba(25, 35, 58, 0.06);
+                cursor: pointer;
+            }
+
+            .accumulation-step:hover,
+            .accumulation-step:focus-visible {
+                outline: none;
+                border-color: #bac4d7;
+                background: linear-gradient(180deg, #ffffff 0%, #eef2f8 100%);
+                color: #3f4857;
+            }
+
             select,
             input[type="number"],
             button {
@@ -594,6 +632,16 @@
                     padding: 0.46rem 0.56rem;
                 }
 
+                .accumulation-control .js-accumulation {
+                    padding-right: 2.85rem;
+                }
+
+                .accumulation-step {
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+
                 .mobile-only-break {
                     display: inline;
                 }
@@ -812,14 +860,23 @@
                     </div>
                     <div class="field">
                         <label>蓄積値</label>
-                        <input
-                            class="js-accumulation"
-                            type="number"
-                            inputmode="numeric"
-                            min="0"
-                            step="1"
-                            value="0"
-                        />
+                        <div class="accumulation-control">
+                            <input
+                                class="js-accumulation"
+                                type="number"
+                                inputmode="numeric"
+                                min="0"
+                                step="1"
+                                value="0"
+                            />
+                            <button
+                                class="accumulation-step js-accumulation-step"
+                                type="button"
+                                aria-label="蓄積値を1増やす"
+                            >
+                                +1
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -1106,11 +1163,11 @@
                     const rowEls = [...rowsEl.querySelectorAll(".calc-row")];
                     const lastRowEl = rowEls[rowEls.length - 1];
                     if (!lastRowEl) {
-                        return 10;
+                        return 1;
                     }
                     const lastHits = clampNonNegativeInteger(
                         lastRowEl.querySelector(".js-hit-count")?.value,
-                        10,
+                        1,
                     );
                     if (lastHits >= 10) {
                         return 10;
@@ -1118,25 +1175,25 @@
                     return Math.min(lastHits + 1, 10);
                 }
 
-                function getLastAccumulationValue() {
+                function getLastRowData() {
                     const rowEls = [...rowsEl.querySelectorAll(".calc-row")];
                     const lastRowEl = rowEls[rowEls.length - 1];
                     if (!lastRowEl) {
-                        return 0;
+                        return {
+                            level: 3,
+                            hits: 1,
+                            accumulation: 0,
+                            grave: false,
+                            wall: false,
+                            projectile: false,
+                            bani: false,
+                            counterBani: false,
+                            lowHealth: false,
+                            guard: false,
+                            auraDrain: false,
+                        };
                     }
-                    return clampNonNegativeInteger(
-                        lastRowEl.querySelector(".js-accumulation")?.value,
-                        0,
-                    );
-                }
-
-                function getLastWallValue() {
-                    const rowEls = [...rowsEl.querySelectorAll(".calc-row")];
-                    const lastRowEl = rowEls[rowEls.length - 1];
-                    if (!lastRowEl) {
-                        return false;
-                    }
-                    return Boolean(lastRowEl.querySelector(".js-wall")?.checked);
+                    return readRow(lastRowEl);
                 }
 
                 rowsEl.addEventListener("input", (event) => {
@@ -1146,6 +1203,21 @@
                             return;
                         }
                     }
+                    recalculate();
+                });
+
+                rowsEl.addEventListener("click", (event) => {
+                    const stepButton = event.target.closest(".js-accumulation-step");
+                    if (!stepButton) {
+                        return;
+                    }
+                    const rowEl = stepButton.closest(".calc-row");
+                    const accumulationEl = rowEl?.querySelector(".js-accumulation");
+                    if (!accumulationEl) {
+                        return;
+                    }
+                    const currentValue = clampNonNegativeInteger(accumulationEl.value, 0);
+                    accumulationEl.value = String(currentValue + 1);
                     recalculate();
                 });
 
@@ -1176,17 +1248,16 @@
                 defenderTypeEl.addEventListener("change", recalculate);
 
                 addRowButton.addEventListener("click", () => {
+                    const lastRowData = getLastRowData();
                     addRow({
-                        level: 3,
+                        ...lastRowData,
                         hits: getNextHitValueFromLastRow(),
-                        accumulation: getLastAccumulationValue(),
-                        wall: getLastWallValue(),
                     });
                 });
 
                 addRow({
                     level: 3,
-                    hits: 10,
+                    hits: 1,
                     accumulation: 0,
                 });
                 syncAllGuardModeStates();
