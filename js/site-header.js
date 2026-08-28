@@ -161,6 +161,58 @@
         document.head.appendChild(style);
     };
 
+    const ensureFooterSupportStyle = () => {
+        if (document.getElementById("siteFooterSupportStyle")) return;
+        const style = document.createElement("style");
+        style.id = "siteFooterSupportStyle";
+        style.textContent = `
+            .footer .site-footer-support {
+                display: flex;
+                justify-content: center;
+                margin-top: 0.75rem;
+            }
+            .footer .site-footer-support a[data-ofuse-widget-button] {
+                display: inline-flex;
+                width: fit-content;
+                margin: 0;
+            }
+        `;
+        document.head.appendChild(style);
+    };
+
+    const ensureFooterSupport = () => {
+        const footers = [...document.querySelectorAll(".footer")].filter((footer) =>
+            footer.textContent.includes("ご意見・ご要望"),
+        );
+        if (!footers.length) return;
+
+        ensureFooterSupportStyle();
+        footers.forEach((footer) => {
+            if (footer.querySelector(".site-footer-support")) return;
+            const support = document.createElement("div");
+            support.className = "site-footer-support";
+            support.innerHTML = `
+                <a
+                    data-ofuse-widget-button
+                    href="https://ofuse.me/o?uid=152633"
+                    data-ofuse-id="152633"
+                    data-ofuse-color="dark"
+                    data-ofuse-text="応援を送る"
+                    data-ofuse-style="rectangle"
+                >応援を送る</a>
+            `;
+            footer.appendChild(support);
+        });
+
+        if (!document.querySelector('script[src="https://ofuse.me/assets/platform/widget.js"]')) {
+            const script = document.createElement("script");
+            script.async = true;
+            script.src = "https://ofuse.me/assets/platform/widget.js";
+            script.charset = "utf-8";
+            document.body.appendChild(script);
+        }
+    };
+
     const applyActiveNav = (root) => {
         const navLinks = root.querySelectorAll("[data-nav-href]");
         if (!navLinks.length) return;
@@ -223,9 +275,14 @@
         }
     };
 
-    if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", injectHeader);
-    } else {
+    const initialize = () => {
         injectHeader();
+        ensureFooterSupport();
+    };
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initialize);
+    } else {
+        initialize();
     }
 })();
