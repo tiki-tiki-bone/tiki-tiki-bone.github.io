@@ -22,6 +22,7 @@
 @media(max-width:800px){.manual-preface{padding:17px 16px;margin-bottom:28px}.manual-preface h2{font-size:17px}.manual-preface p{font-size:13px}.manual-body-divider{font-size:20px;margin-bottom:24px}.sidebar nav .toc-group{grid-column:1/-1}}
 @media print{.manual-preface{background:none;border:1px solid #aaa;padding:12px 15px}.manual-body-divider{break-after:avoid}}
 @media(max-width:800px){#changelog{margin-bottom:32px}#changelog p{grid-template-columns:1fr 1fr;gap:8px 12px}#changelog .release-description{grid-column:1/-1}}
+.meter-crop{aspect-ratio:auto;overflow:visible;background:transparent}.meter-crop img{position:static;transform:none}
 
 [data-manual-empty],section[data-search] :is(p,h2,h3,h4,h5,h6,aside,pre,blockquote,dt,dd,figcaption,li):empty{display:none}
 
