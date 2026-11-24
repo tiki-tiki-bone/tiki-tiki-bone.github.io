@@ -33,3 +33,39 @@ dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoun
 dialog.addEventListener('close',()=>trigger?.focus());
 
 filter();
+
+// Recipe references must remain reachable when search hides their chapters.
+document.querySelector('#practice-guide')?.addEventListener('click',event=>{
+ const anchor=event.target.closest('a[href^="#"]');
+ if(!anchor)return;
+ const target=document.getElementById(anchor.hash.slice(1));
+ if(target?.closest('details'))target.closest('details').open=true;
+ if(target?.closest('section[data-search]')?.hidden){
+  search.value='';
+  filter();
+ }
+});
+// Keep optional guidance discoverable through search and direct links.
+const searchableDetails=[...document.querySelectorAll('#practice-guide details,#fmcb-compatibility details,#fmcb-card details')];
+const openBeforeSearch=new Map();
+function revealDetailsSearch(){
+ const words=normalize(search.value).trim().split(/\s+/).filter(Boolean);
+ if(words.length){
+  for(const detail of searchableDetails){
+   if(!openBeforeSearch.has(detail))openBeforeSearch.set(detail,detail.open);
+   detail.open=words.every(w=>normalize(detail.textContent).includes(w));
+  }
+ }else{
+  for(const [detail,wasOpen] of openBeforeSearch)detail.open=wasOpen;
+  openBeforeSearch.clear();
+ }
+}
+search.addEventListener('input',revealDetailsSearch);
+document.querySelector('#clear').addEventListener('click',revealDetailsSearch);
+function revealDetailsAnchor(){
+ const target=document.getElementById(decodeURIComponent(location.hash.slice(1)));
+ const detail=target?.closest('details');
+ if(detail)detail.open=true;
+}
+window.addEventListener('hashchange',revealDetailsAnchor);
+revealDetailsAnchor();
