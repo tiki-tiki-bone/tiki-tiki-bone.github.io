@@ -33,6 +33,7 @@
 [data-manual-empty],section[data-search] :is(p,h2,h3,h4,h5,h6,aside,pre,blockquote,dt,dd,figcaption,li):empty{display:none}
 
 .download-heading{display:block;margin:0 0 10px;color:#243f58;font-size:18px}
+.download-update-note{margin:0 0 10px;font-size:14px;color:#273a49}
 .download-file{display:grid;grid-template-columns:20px minmax(0,1fr) auto;align-items:center;
     gap:10px 14px;padding:14px 16px;border:1px solid #cddadf;border-radius:6px;background:#fafcfc}
 .download-file-icon{position:relative;width:15px;height:19px;border:1.5px solid #688294;border-radius:2px}
